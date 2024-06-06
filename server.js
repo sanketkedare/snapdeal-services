@@ -1,22 +1,11 @@
-const express = require('express');
-const connectToDB = require('./Config/connectToDB');
-const User = require('./Model/userSchema');
-require('dotenv').config();
+const app = require('./app.js')
+const connectToDB = require("./Config/connectToDB");
+const cors = require('cors')
+require("dotenv").config();
 
-const app = express();
 const PORT = process.env.PORT || 3001
 
-app.use(express.json());
+app.use(cors());
+connectToDB();
 
-connectToDB()
-
-app.get("/", async(req,res)=>{
-    const data = await User.find();
-
-    res.status(200).json(data);
-})
-
-app.listen(PORT, ()=>{
-    
-  console.log(`app listening on port ${PORT}`)
-})
+app.listen(PORT, () => console.log(`App listening on port ${PORT}`));
