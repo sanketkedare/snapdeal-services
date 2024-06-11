@@ -8,3 +8,5 @@ shortRouter.get("/getall", getAllShortProducts);
 shortRouter.post("/add", addToshort);
 
 shortRouter.delete("/delete", removeFromshort);
+
+module.exports = shortRouter;

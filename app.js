@@ -3,7 +3,8 @@ const cors = require("cors");
 const userRoute = require("./Routes/userRoutes");
 const locationRouter = require("./Routes/locationRoutes");
 const productRouter = require("./Routes/productRoutes");
-const cartRoutes = require("./Routes/cartRoutes");
+const cartRouter = require("./Routes/cartRoutes");
+const shortRouter = require("./Routes/shortRoutes");
 
 const app = express();
 app.use(cors());
@@ -21,7 +22,9 @@ app.use("/api/location", locationRouter);
 
 app.use("/api/products", productRouter);
 
-app.use('/api/cart', cartRoutes);
+app.use('/api/cart', cartRouter);
+
+app.use('/api/short', shortRouter);
 
 
 
