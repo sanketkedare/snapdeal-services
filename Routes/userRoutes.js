@@ -3,8 +3,8 @@ const {getAllUser, createUser,getUser, updateUser} = require('../Controllers/use
 
 const userRoute = express.Router();
 
-userRoute.get('/', getAllUser);
-userRoute.post('/', createUser);
+userRoute.get('/getall', getAllUser);
+userRoute.post('/signup', createUser);
 userRoute.get('/login', getUser);
 userRoute.patch('/update', updateUser);
 
