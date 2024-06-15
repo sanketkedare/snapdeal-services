@@ -1,4 +1,4 @@
-const app = require('./app.js')
+const app = require('./src/app.js')
 const connectToDB = require("./Config/connectToDB");
 const cors = require('cors')
 require("dotenv").config();
