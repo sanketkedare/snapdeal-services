@@ -14,6 +14,10 @@ const addToCart = async (req, res) => {
   try {
     const { userEmail, productId } = req.body;
 
+    if(!userEmail )
+      {
+        res.status(400).json({message: "Not logged in"});
+      }
     // Find the cart associated with the user
     let userCart = await Cart.findOne({ user: userEmail });
 

@@ -5,14 +5,18 @@ const locationRouter = require("./Routes/locationRoutes");
 const productRouter = require("./Routes/productRoutes");
 const cartRouter = require("./Routes/cartRoutes");
 const shortRouter = require("./Routes/shortRoutes");
+const cookieParser = require("cookie-parser");
 
 const app = express();
 app.use(cors());
 
 app.use(express.json());
+app.use(cookieParser());
+
+
 
 app.get("/", async (req, res) => {
-  const MESSAGE = "App Working fine please go by `/api/user/`";
+  const MESSAGE = "App Working fine please go by `/api/...`";
   res.status(200).json({ message: MESSAGE });
 });
 

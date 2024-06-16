@@ -3,10 +3,10 @@ const { removeFromshort, addToshort, getAllShortProducts } = require("../Control
 
 const shortRouter = express.Router();
 
-shortRouter.get("/getall", getAllShortProducts);
+shortRouter.get("/", getAllShortProducts);
 
-shortRouter.post("/add", addToshort);
+shortRouter.post("/", addToshort);
 
-shortRouter.delete("/delete", removeFromshort);
+shortRouter.delete("/", removeFromshort);
 
 module.exports = shortRouter;

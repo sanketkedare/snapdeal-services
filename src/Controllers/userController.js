@@ -1,5 +1,6 @@
 const User = require("../Model/userSchema");
 const bcrypt = require("bcrypt");
+const { createToken } = require("../utils/jwt");
 
 const getAllUser = async (req, res) => {
   try {
@@ -11,11 +12,9 @@ const getAllUser = async (req, res) => {
 };
 
 const createUser = async (req, res) => {
+  console.log("Method Called : ", req.body)
   try {
     const user = req.body;
-    const saltRounds = 10;
-    user.password = await bcrypt.hash(user.password, saltRounds);
-
     await User.create(user);
     res.status(201).json({ message: "User created successfully" });
   } catch (error) {
@@ -40,11 +39,24 @@ const getUser = async (req, res) => {
     if (!isPasswordValid) {
       return res.status(401).json({ error: "Invalid email or password" });
     }
-    res.status(200).json({ message: "Login successful" });
+    const token = createToken({id : user._id});
+    res.cookie("authToken", token,{
+      path:"/",
+      expires: new Date(Date.now() + 3600000),
+      secure: true,
+      httpOnly: true,
+      sameSite: "None"
+    })
+    res.status(200).json({ message: "Login successful" , token});
   } catch (error) {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
+const logOut = async (req,res) =>{
+  res.clearCookie("authToken");
+  return res.status(200).json({ message: "User logged out successfully" });
+}
 
 const updateUser = async (req, res) => {
   try {
@@ -67,4 +79,21 @@ const updateUser = async (req, res) => {
   }
 };
 
-module.exports = { getAllUser, createUser, getUser, updateUser };
+const deleteUser = async(req,res)=>
+{
+  const id = req.params.id;
+  try{
+    await User.findByIdAndDelete(id);
+    res.status(200).json({message: 'User deleted successfully'});
+
+  }
+  catch(error)
+  {
+    res.status(404).json({message:"User not found"});
+
+  }
+
+
+}
+
+module.exports = { getAllUser, createUser, getUser, updateUser, logOut, deleteUser };

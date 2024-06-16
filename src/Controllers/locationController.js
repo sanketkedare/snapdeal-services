@@ -2,6 +2,7 @@ const Pincode = require("../Model/pincodeSchema");
 
 const locationController = async (req, res) => {
   try {
+    console.log(req.body)
     const { PIN } = req.body;
     if (!PIN) {
       return res.status(400).json({ error: "PIN code is required" });

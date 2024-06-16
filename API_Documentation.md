@@ -11,6 +11,32 @@
 
 ## Endpoints
 
+1] Entry point for application - http://localhost:3001/
+
+2] User Routes - http://localhost:3001/api/user
+
+   - Register (POST)   - http://localhost:3001/api/user/signup
+   - Login    (POST)   - http://localhost:3001/api/user/login
+   - Logout   (POST)   - http://localhost:3001/api/user/logout
+   - Update   (PATCH)  - http://localhost:3001/api/user/update
+   - Delete   (DELETE) - http://localhost:3001/api/user/delete
+
+3] Location Routes (POST) - http://localhost:3001/api/location
+
+4] Products Routes (GET) - http://localhost:3001/api/products
+
+5] Cart Routes - http://localhost:3001/api/cart/
+
+   - Get ALL       (GET)    - http://localhost:3001/api/cart
+   - Add Products  (POST)   - http://localhost:3001/api/cart
+   - DeleteProduct (DELETE) - http://localhost:3001/api/cart
+
+6] Short Routes - http://localhost:3001/api/short/
+
+   - Get ALL       (GET)    - http://localhost:3001/api/short/
+   - Add Products  (POST)   - http://localhost:3001/api/short/add
+   - DeleteProduct (DELETE) - http://localhost:3001/delete/
+
 
 ## Error Handling
 

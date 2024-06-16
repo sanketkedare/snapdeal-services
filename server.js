@@ -1,5 +1,5 @@
 const app = require('./src/app.js')
-const connectToDB = require("./Config/connectToDB");
+const connectToDB = require("./src/Config/connectToDB");
 const cors = require('cors')
 require("dotenv").config();
 
