@@ -17,4 +17,4 @@ const locationController = async (req, res) => {
   }
 };
 
-module.exports = { locationController , setPincodeData};
+module.exports = { locationController };
