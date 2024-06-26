@@ -3,8 +3,7 @@ const Pincode = require("../Model/pincodeSchema");
 const locationController = async (req, res) => {
   try {
     const { pin } = req.params;
-    const data = await Pincode.findOne({ pincode: pin });
-
+    const data = await Pincode.find({ pincode: pin });
     if (!data) {
       return res
         .status(404)
