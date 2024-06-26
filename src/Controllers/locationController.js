@@ -1,14 +1,27 @@
 const Pincode = require("../Model/pincodeSchema");
+const data = require('../Data/PincodeData.json')
+
+const setPincodeData = async(req,res)=>
+{
+  try 
+  {
+    await Pincode.deleteMany();
+    const result = await Pincode.insertMany(data);
+    res.status(200).json(result);
+    
+  } 
+  catch (error) 
+  {
+    res.status(500).json({error: error.message});
+    
+  }
+
+}
 
 const locationController = async (req, res) => {
   try {
-    console.log(req.body)
-    const { PIN } = req.body;
-    if (!PIN) {
-      return res.status(400).json({ error: "PIN code is required" });
-    }
-
-    const data = await Pincode.findOne({ pincode: PIN });
+    const { pin } = req.params;
+    const data = await Pincode.findOne({ pincode: pin });
 
     if (!data) {
       return res
@@ -22,4 +35,4 @@ const locationController = async (req, res) => {
   }
 };
 
-module.exports = { locationController };
+module.exports = { locationController , setPincodeData};

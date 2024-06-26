@@ -1,11 +1,13 @@
 const express = require("express");
-const { locationController } = require("../Controllers/locationController");
+const { locationController, setPincodeData } = require("../Controllers/locationController");
 const cors = require("cors");
 
 const locationRouter = express.Router();
 
 locationRouter.use(cors());
 
-locationRouter.post("/", locationController);
+// locationRouter.get('/', setPincodeData)
+
+locationRouter.post("/:pin", locationController);
 
 module.exports = locationRouter;

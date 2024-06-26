@@ -2,7 +2,10 @@ const mongoose = require("mongoose");
 
 const pincodeSchema = new mongoose.Schema({
   officeName: String,
-  pincode: Number,
+  pincode: {
+    type: Number,
+    index: true
+  },
   taluk: String,
   districtName: String,
   stateName: String,
@@ -11,4 +14,4 @@ const pincodeSchema = new mongoose.Schema({
 
 const Pincode = mongoose.model("pincodes", pincodeSchema);
 
-module.exports = Pincode; 
+module.exports = Pincode;
