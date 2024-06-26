@@ -1,22 +1,4 @@
 const Pincode = require("../Model/pincodeSchema");
-const data = require('../Data/PincodeData.json')
-
-const setPincodeData = async(req,res)=>
-{
-  try 
-  {
-    await Pincode.deleteMany();
-    const result = await Pincode.insertMany(data);
-    res.status(200).json(result);
-    
-  } 
-  catch (error) 
-  {
-    res.status(500).json({error: error.message});
-    
-  }
-
-}
 
 const locationController = async (req, res) => {
   try {
