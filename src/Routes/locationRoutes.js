@@ -6,6 +6,6 @@ const locationRouter = express.Router();
 
 locationRouter.use(cors());
 
-locationRouter.post("/:pin", locationController);
+locationRouter.get("/:pin", locationController);
 
 module.exports = locationRouter;
