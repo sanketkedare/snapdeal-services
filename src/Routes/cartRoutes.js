@@ -7,8 +7,8 @@ cartRouter.use(cors())
 
 
 cartRouter.get('/',getAllCartProducts);
-cartRouter.post('/add',addToCart);
-cartRouter.delete('/delete',removeFromCart);
+cartRouter.post('/',addToCart);
+cartRouter.delete('/',removeFromCart);
 
 
 module.exports = cartRouter;

@@ -2,9 +2,21 @@ const Cart = require("../Model/cartSchema");
 
 const getAllCartProducts = async (req, res) => {
   try {
-    const userEmail = req.body;
+    console.log("called")
+
+    const userEmail = req.query.userEmail;
+
     const { cart } = await Cart.findOne({ user: userEmail });
-    res.status(200).json(cart);
+    if(cart)
+      {
+        res.status(200).json(cart);
+      }
+      else{
+         res.status(404).json({message: 'Cart not found'
+          ,email: userEmail
+         })
+      }
+    
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -12,32 +24,36 @@ const getAllCartProducts = async (req, res) => {
 
 const addToCart = async (req, res) => {
   try {
-    const { userEmail, productId } = req.body;
+    const { userEmail, cart } = req.body;
 
-    if(!userEmail )
-      {
-        res.status(400).json({message: "Not logged in"});
-      }
+    // Check if userEmail is provided
+    if (!userEmail) {
+      return res.status(400).json({ message: "User email is required" });
+    }
+
     // Find the cart associated with the user
     let userCart = await Cart.findOne({ user: userEmail });
 
-    if (!userCart) 
-    {
-      // If no cart exists, create a new one
+    // If no cart exists, create a new one
+    if (!userCart) {
       userCart = new Cart({ user: userEmail, cart: [] });
     }
 
-    // Add the new product to the cart
-    userCart.cart.push(productId);
+    // Update the cart items
+    userCart.cart = cart;
 
     // Save the updated cart to the database
     await userCart.save();
 
+    // Respond with success message
     res.status(201).json({ message: "Cart updated successfully" });
 
-  } 
-  catch (error) {res.status(500).json({ message: error.message })}
+  } catch (error) {
+    // Handle errors
+    res.status(500).json({ message: error.message });
+  }
 };
+
 
 const removeFromCart = async (req, res) => {
     try {
