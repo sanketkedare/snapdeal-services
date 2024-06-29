@@ -2,12 +2,14 @@ const Short = require("../Model/shortSchema");
 
 const getAllShortProducts = async (req, res) => {
   try {
-    const { userEmail } = req.body;
-    const userShort = await Short.findOne({ user: userEmail });
-    if (!userShort) {
-      return res.status(404).json({ message: 'No products found for this user' });
+    const userEmail = req.query.userEmail;
+
+    const { short } = await Short.findOne({ user: userEmail });
+    if (short) {
+      res.status(200).json(short);
+    } else {
+      res.status(404).json({ message: "Shortlist not found", email: userEmail });
     }
-    res.status(200).json(userShort.short);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -15,24 +17,31 @@ const getAllShortProducts = async (req, res) => {
 
 const addToshort = async (req, res) => {
   try {
-    const { userEmail, productId } = req.body;
+    const { userEmail, short } = req.body;
 
-    // Find the short associated with the user
-    let userShort = await Short.findOne({ user: userEmail });
-
-    if (!userShort) {
-      // If no short exists, create a new one
-      userShort = new Short({ user: userEmail, short: [] });
+    // Check if userEmail is provided
+    if (!userEmail) {
+      return res.status(400).json({ message: "User email is required" });
     }
 
-    // Add the new product to the short
-    userShort.short.push(productId);
+    // Find the cart associated with the user
+    let userShort = await Short.findOne({ user: userEmail });
 
-    // Save the updated short to the database
+    // If no cart exists, create a new one
+    if (!userShort) {
+      userShort = new Short({ user: userEmail, cart: [] });
+    }
+
+    // Update the cart items
+    userShort.short = short;
+
+    // Save the updated cart to the database
     await userShort.save();
 
-    res.status(201).json({ message: "short updated successfully" });
+    // Respond with success message
+    res.status(201).json({ message: "Cart updated successfully" });
   } catch (error) {
+    // Handle errors
     res.status(500).json({ message: error.message });
   }
 };
