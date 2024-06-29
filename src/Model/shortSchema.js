@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const shortSchema = new mongoose.Schema({
-    email : String,
+    user : String,
     short: Array
 })
 
