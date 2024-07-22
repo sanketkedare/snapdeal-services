@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 
+// Schema for User
 const userSchema = new mongoose.Schema(
   {
     email: {
@@ -23,11 +24,12 @@ const userSchema = new mongoose.Schema(
   },
   {
     versionKey: "_version",
-    timestamps: true,
+    timestamps: true, // Automatically adds createdAt and updatedAt fields
   }
 );
 
-userSchema.pre("save", async function(next) {
+// Middleware to hash the password before saving
+userSchema.pre("save", async function (next) {
   if (!this.isModified('password')) {
     return next();
   }

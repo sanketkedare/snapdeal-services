@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 
-const cartScheama = new mongoose.Schema({
-    user:String,
-    cart:Array
-})
+// Schema for Cart
+const cartSchema = new mongoose.Schema({
+  user: String,
+  cart: Array,
+});
 
-
-const Cart = mongoose.model('Cart', cartScheama);
+const Cart = mongoose.model('Cart', cartSchema);
 
 module.exports = Cart;

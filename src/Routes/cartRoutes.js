@@ -3,12 +3,15 @@ const { getAllCartProducts, addToCart, removeFromCart } = require('../Controller
 const cartRouter = express.Router();
 const cors = require('cors');
 
-cartRouter.use(cors())
+cartRouter.use(cors());
 
+// Route to get all products in the cart
+cartRouter.get('/', getAllCartProducts);
 
-cartRouter.get('/',getAllCartProducts);
-cartRouter.post('/',addToCart);
-cartRouter.delete('/',removeFromCart);
+// Route to add a product to the cart
+cartRouter.post('/', addToCart);
 
+// Route to remove a product from the cart
+cartRouter.delete('/', removeFromCart);
 
 module.exports = cartRouter;

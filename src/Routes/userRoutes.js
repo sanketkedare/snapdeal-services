@@ -10,7 +10,7 @@ userRoute.get('/getall', getAllUser);
 // Sign up a new user
 userRoute.post('/signup', createUser);
 
-// Log in a user (this should be POST)
+// Log in a user
 userRoute.post('/login', getUser);
 
 // Log out a user

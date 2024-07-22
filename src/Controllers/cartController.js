@@ -1,20 +1,23 @@
 const Cart = require("../Model/cartSchema");
 
+// Controller to get all products in the cart for a user
 const getAllCartProducts = async (req, res) => {
   try {
     const userEmail = req.query.userEmail;
 
+    // Find the cart associated with the user
     const { cart } = await Cart.findOne({ user: userEmail });
     if (cart) {
-      res.status(200).json(cart);
+      res.status(200).json(cart); // If cart is found, respond with the cart
     } else {
-      res.status(404).json({ message: "Cart not found", email: userEmail });
+      res.status(404).json({ message: "Cart not found", email: userEmail }); // If no cart is found, respond with an error
     }
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    res.status(400).json({ error: error.message }); // Handle errors
   }
 };
 
+// Controller to add or update products in the cart for a user
 const addToCart = async (req, res) => {
   try {
     const { userEmail, cart } = req.body;
@@ -46,9 +49,12 @@ const addToCart = async (req, res) => {
   }
 };
 
+// Controller to remove a product from the cart for a user
 const removeFromCart = async (req, res) => {
   try {
     const { userEmail, productId } = req.body;
+
+    // Find the cart associated with the user
     const userCart = await Cart.findOne({ user: userEmail });
 
     if (!userCart) {

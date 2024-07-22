@@ -1,14 +1,15 @@
 const jwt = require("jsonwebtoken");
 
+// Function to create a JWT token
 const createToken = (data) => {
   return jwt.sign(data, process.env.JWT_SECRET_KEY, {
-    expiresIn: "1d",
+    expiresIn: "1d", // Token expiration set to 1 day
   });
 };
 
-const verifyToken = (token) =>{
-    return jwt.verify(token, process.env.JWT_SECRET_KEY);
+// Function to verify a JWT token
+const verifyToken = (token) => {
+  return jwt.verify(token, process.env.JWT_SECRET_KEY);
+};
 
-}
-
-module.exports = {createToken, verifyToken}
+module.exports = { createToken, verifyToken };
